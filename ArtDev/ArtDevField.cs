@@ -10,6 +10,7 @@ namespace ArtDev
     public class ArtDevField
     {
         public SPField field = null;
+
         public ArtDevField(SPField field)
         {
             this.field = field;
