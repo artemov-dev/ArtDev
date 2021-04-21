@@ -255,9 +255,10 @@ namespace ArtDev
             {
                 SPListItem sPListItem = this.list.Items.Add();
                 int i = 0;
+                IEnumerable<SPField> DisplayedFields = this.list.Fields.Cast<SPField>().Where(Field => Field.CanBeDisplayedInEditForm);
                 Values.ToList<string>().ForEach(value =>
                 {
-                    string Name = this.sPFields[i].InternalName;
+                    string Name = DisplayedFields.ElementAt(i).InternalName;
                     sPListItem[Name] = value;
                     i++;
                 });
@@ -266,9 +267,10 @@ namespace ArtDev
             else
             {
                 int i = 0;
+                IEnumerable<SPField> DisplayedFields = this.list.Fields.Cast<SPField>().Where(Field => Field.CanBeDisplayedInEditForm);
                 Values.ToList<string>().ForEach(value =>
                 {
-                    string Name = this.sPFields[i].InternalName;
+                    string Name = DisplayedFields.ElementAt(i).InternalName;
                     this.Item[Name] = value;                    
                     i++;
                 });
