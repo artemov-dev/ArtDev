@@ -302,6 +302,31 @@ namespace ArtDev
             return this;
         }
 
+        public ArtDevFeature EnablePublishigFeature()
+        {
+            using (SPSite site = new SPSite(this.site.Url))
+            {
+                site.AllowUnsafeUpdates = true;
+                //Activate the publishing feature at the site collection level
+                SPFeatureCollection sFeatureCollect = site.Features;
+                sFeatureCollect.Add(new Guid("F6924D36-2FA8-4f0b-B16D-06B7250180FA"), true);
+                site.AllowUnsafeUpdates = false;
+            }
+
+            using (SPSite site = new SPSite(this.site.Url))
+            {
+                using (SPWeb web = site.OpenWeb())
+                {
+                    web.AllowUnsafeUpdates = true;
+                    //Activate the publishing feature at the web level
+                    SPFeatureCollection wFeatureCollect = web.Features;
+                    wFeatureCollect.Add(new Guid("94c94ca6-b32f-4da9-a9e3-1f3d343d7ecb"), true);
+                    web.AllowUnsafeUpdates = false;
+                }
+            }
+            return this;
+        }
+
         public ArtDevFeature ActivateMasterPage(string Url)
         {
             try
